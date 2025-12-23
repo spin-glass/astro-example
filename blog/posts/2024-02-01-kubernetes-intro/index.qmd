@@ -1,0 +1,147 @@
+---
+title: "Kubernetes入門：基本概念から実践まで"
+author: "山田太郎"
+date: "2024-02-01"
+categories: [Kubernetes, インフラ, DevOps]
+image: "kubernetes.png"
+description: "Kubernetesの基本概念を理解し、実際にアプリケーションをデプロイするまでの流れを解説します。"
+---
+
+## はじめに
+
+コンテナオーケストレーションのデファクトスタンダードとなったKubernetes。
+この記事では、基本概念から実際のデプロイまでを解説します。
+
+## Kubernetesとは
+
+Kubernetesは、コンテナ化されたアプリケーションのデプロイ、スケーリング、管理を自動化するためのオープンソースプラットフォームです。
+
+### 主な特徴
+
+- **自動スケーリング**: 負荷に応じてPod数を自動調整
+- **自己修復**: 障害時に自動でコンテナを再起動
+- **ローリングアップデート**: ダウンタイムなしでのデプロイ
+- **サービスディスカバリ**: DNSベースの名前解決
+
+## 基本概念
+
+### Pod
+
+Kubernetesの最小デプロイ単位です。1つ以上のコンテナをグループ化します。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+```
+
+### Deployment
+
+Podのレプリカ数を管理し、ローリングアップデートを提供します。
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.21
+        ports:
+        - containerPort: 80
+```
+
+### Service
+
+Podへのネットワークアクセスを提供します。
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
+```
+
+## 実践：アプリケーションのデプロイ
+
+### 1. kubectlのセットアップ
+
+```bash
+# macOS
+brew install kubectl
+
+# 設定確認
+kubectl cluster-info
+```
+
+### 2. Deploymentの作成
+
+```bash
+kubectl apply -f deployment.yaml
+```
+
+### 3. Serviceの作成
+
+```bash
+kubectl apply -f service.yaml
+```
+
+### 4. 確認
+
+```bash
+# Pod一覧
+kubectl get pods
+
+# Service一覧
+kubectl get services
+
+# ログ確認
+kubectl logs <pod-name>
+```
+
+## スケーリング
+
+```bash
+# レプリカ数を5に変更
+kubectl scale deployment nginx-deployment --replicas=5
+
+# オートスケーリングの設定
+kubectl autoscale deployment nginx-deployment \
+  --min=3 --max=10 --cpu-percent=80
+```
+
+## まとめ
+
+Kubernetesは学習曲線が急ですが、一度理解すれば非常に強力なツールです。
+まずは小規模な環境（minikubeやkind）で試してみることをお勧めします。
+
+::: {.callout-note}
+## 参考リソース
+- [Kubernetes公式ドキュメント](https://kubernetes.io/ja/docs/home/)
+- [kubectl チートシート](https://kubernetes.io/ja/docs/reference/kubectl/cheatsheet/)
+:::
+

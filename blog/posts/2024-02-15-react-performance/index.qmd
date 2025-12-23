@@ -1,0 +1,218 @@
+---
+title: "Reactパフォーマンス最適化：実践的なテクニック集"
+author: "山田太郎"
+date: "2024-02-15"
+categories: [React, フロントエンド, パフォーマンス]
+image: "react.png"
+description: "Reactアプリケーションのパフォーマンスを改善するための実践的なテクニックを紹介します。"
+---
+
+## はじめに
+
+Reactアプリケーションが大規模化すると、パフォーマンスの問題が顕在化してきます。
+この記事では、実務で使える最適化テクニックを紹介します。
+
+## 1. 不要な再レンダリングを防ぐ
+
+### React.memoの活用
+
+```tsx
+import { memo } from 'react';
+
+interface UserCardProps {
+  name: string;
+  email: string;
+}
+
+// propsが変更されない限り再レンダリングされない
+const UserCard = memo(function UserCard({ name, email }: UserCardProps) {
+  return (
+    <div className="user-card">
+      <h3>{name}</h3>
+      <p>{email}</p>
+    </div>
+  );
+});
+```
+
+### useMemoで計算結果をキャッシュ
+
+```tsx
+import { useMemo } from 'react';
+
+function ExpensiveComponent({ items }: { items: Item[] }) {
+  // itemsが変更された時のみ再計算
+  const sortedItems = useMemo(() => {
+    return [...items].sort((a, b) => a.price - b.price);
+  }, [items]);
+
+  return (
+    <ul>
+      {sortedItems.map(item => (
+        <li key={item.id}>{item.name}: ¥{item.price}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### useCallbackでコールバックを安定化
+
+```tsx
+import { useCallback, useState } from 'react';
+
+function TodoList() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  // 関数の参照が安定する
+  const handleDelete = useCallback((id: string) => {
+    setTodos(prev => prev.filter(todo => todo.id !== id));
+  }, []);
+
+  return (
+    <ul>
+      {todos.map(todo => (
+        <TodoItem 
+          key={todo.id} 
+          todo={todo} 
+          onDelete={handleDelete} 
+        />
+      ))}
+    </ul>
+  );
+}
+```
+
+## 2. 遅延読み込み（Lazy Loading）
+
+### コンポーネントの遅延読み込み
+
+```tsx
+import { lazy, Suspense } from 'react';
+
+// 動的インポート
+const HeavyChart = lazy(() => import('./HeavyChart'));
+
+function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <Suspense fallback={<div>Loading chart...</div>}>
+        <HeavyChart />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+### 画像の遅延読み込み
+
+```tsx
+function LazyImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      loading="lazy"
+      decoding="async"
+    />
+  );
+}
+```
+
+## 3. 仮想化（Virtualization）
+
+大量のリストは`react-window`や`@tanstack/react-virtual`で仮想化します。
+
+```tsx
+import { FixedSizeList } from 'react-window';
+
+interface RowProps {
+  index: number;
+  style: React.CSSProperties;
+}
+
+function VirtualList({ items }: { items: string[] }) {
+  const Row = ({ index, style }: RowProps) => (
+    <div style={style}>
+      {items[index]}
+    </div>
+  );
+
+  return (
+    <FixedSizeList
+      height={400}
+      width={300}
+      itemCount={items.length}
+      itemSize={35}
+    >
+      {Row}
+    </FixedSizeList>
+  );
+}
+```
+
+## 4. 状態管理の最適化
+
+### 状態の分割
+
+```tsx
+// ❌ 大きな状態オブジェクト
+const [state, setState] = useState({
+  user: null,
+  posts: [],
+  comments: [],
+  notifications: [],
+});
+
+// ✅ 関心ごとに分割
+const [user, setUser] = useState(null);
+const [posts, setPosts] = useState([]);
+const [comments, setComments] = useState([]);
+const [notifications, setNotifications] = useState([]);
+```
+
+### Contextの分割
+
+```tsx
+// 変更頻度の低いデータと高いデータを分離
+const UserContext = createContext(null);      // 変更頻度：低
+const NotificationContext = createContext(null); // 変更頻度：高
+```
+
+## 5. パフォーマンス計測
+
+### React DevTools Profiler
+
+React DevToolsのProfilerタブで、レンダリング時間やコミット数を確認できます。
+
+### useDebugValue
+
+カスタムフックのデバッグに役立ちます。
+
+```tsx
+function useOnlineStatus() {
+  const [isOnline, setIsOnline] = useState(true);
+  
+  useDebugValue(isOnline ? 'Online' : 'Offline');
+  
+  // ...
+  return isOnline;
+}
+```
+
+## まとめ
+
+パフォーマンス最適化は、まず計測してから行うことが重要です。
+闇雲に最適化すると、かえってコードの複雑さが増すこともあります。
+
+::: {.callout-warning}
+## 注意
+早すぎる最適化は避けましょう。まずは動くコードを書き、問題が発生してから最適化を検討してください。
+:::
+
+## 参考リンク
+
+- [React公式ドキュメント - パフォーマンス](https://react.dev/learn/render-and-commit)
+- [React Profiler API](https://react.dev/reference/react/Profiler)
+

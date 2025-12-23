@@ -1,0 +1,23 @@
+{
+  "name": "astro-example",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "pdf": "node scripts/generate-pdf.mjs",
+    "build:slides": "cd slides && npm run build -- --base /astro-example/slides/",
+    "build:blog": "cd blog && quarto render",
+    "build:all": "npm run build && npm run build:slides && npm run build:blog && node scripts/combine-dist.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.6",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.34.0"
+  }
+}

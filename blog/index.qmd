@@ -1,0 +1,32 @@
+---
+title: "山田太郎 Tech Blog"
+subtitle: "シニアソフトウェアエンジニアの技術ブログ"
+---
+
+## Welcome
+
+10年以上のソフトウェア開発経験を持つフルスタックエンジニアです。
+このブログでは、日々の開発で得た知見や技術的なトピックについて発信しています。
+
+### 専門分野
+
+- **フロントエンド**: React, Vue.js, TypeScript
+- **バックエンド**: Node.js, Python, Go
+- **インフラ**: AWS, GCP, Kubernetes
+- **その他**: アーキテクチャ設計, チームリーダーシップ
+
+### 最新記事
+
+::: {#latest-posts}
+:::
+
+[すべての記事を見る →](posts.qmd)
+
+### お問い合わせ
+
+技術的なご質問やお仕事のご依頼は、以下からお気軽にどうぞ。
+
+- 📧 [taro.yamada@example.com](mailto:taro.yamada@example.com)
+- 🐙 [GitHub](https://github.com/taroyamada)
+- 💼 [LinkedIn](https://linkedin.com/in/taroyamada)
+

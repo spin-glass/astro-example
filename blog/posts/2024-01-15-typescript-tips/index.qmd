@@ -1,0 +1,134 @@
+---
+title: "TypeScriptで型安全なコードを書くための5つのTips"
+author: "山田太郎"
+date: "2024-01-15"
+categories: [TypeScript, フロントエンド, 開発Tips]
+image: "typescript.png"
+description: "TypeScriptの型システムを活用して、より安全で保守性の高いコードを書くためのテクニックを紹介します。"
+---
+
+## はじめに
+
+TypeScriptを使っていると、型の恩恵を最大限に活かせていないケースをよく見かけます。
+今回は、実務で役立つ型安全なコードを書くためのTipsを5つ紹介します。
+
+## 1. Union型とType Guardの活用
+
+```typescript
+type Status = 'loading' | 'success' | 'error';
+
+interface LoadingState {
+  status: 'loading';
+}
+
+interface SuccessState {
+  status: 'success';
+  data: string[];
+}
+
+interface ErrorState {
+  status: 'error';
+  message: string;
+}
+
+type State = LoadingState | SuccessState | ErrorState;
+
+function handleState(state: State) {
+  switch (state.status) {
+    case 'loading':
+      return 'Loading...';
+    case 'success':
+      return state.data.join(', '); // dataに安全にアクセス
+    case 'error':
+      return `Error: ${state.message}`; // messageに安全にアクセス
+  }
+}
+```
+
+## 2. Genericsで再利用可能な型を作る
+
+```typescript
+// APIレスポンスの汎用型
+interface ApiResponse<T> {
+  data: T;
+  status: number;
+  timestamp: Date;
+}
+
+// 使用例
+interface User {
+  id: number;
+  name: string;
+}
+
+async function fetchUser(id: number): Promise<ApiResponse<User>> {
+  const response = await fetch(`/api/users/${id}`);
+  return response.json();
+}
+```
+
+## 3. Const Assertionでリテラル型を保持
+
+```typescript
+// asConst なし - string[]として推論される
+const colors = ['red', 'green', 'blue'];
+
+// as const あり - readonly ['red', 'green', 'blue']として推論される
+const colorsConst = ['red', 'green', 'blue'] as const;
+
+// 型として使用可能
+type Color = typeof colorsConst[number]; // 'red' | 'green' | 'blue'
+```
+
+## 4. Template Literal Typesの活用
+
+```typescript
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type Endpoint = '/users' | '/posts' | '/comments';
+
+// 組み合わせた型を自動生成
+type ApiRoute = `${HttpMethod} ${Endpoint}`;
+// 'GET /users' | 'GET /posts' | 'GET /comments' | 'POST /users' | ...
+
+function request(route: ApiRoute) {
+  // 型安全なルーティング
+}
+
+request('GET /users'); // OK
+request('PATCH /users'); // エラー
+```
+
+## 5. Utility Typesを使いこなす
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  createdAt: Date;
+}
+
+// 更新用の型（すべてオプショナル）
+type UpdateUser = Partial<User>;
+
+// 表示用の型（パスワードを除外）
+type PublicUser = Omit<User, 'password'>;
+
+// 必須フィールドのみの型
+type RequiredUserFields = Pick<User, 'id' | 'name' | 'email'>;
+
+// 読み取り専用
+type ReadonlyUser = Readonly<User>;
+```
+
+## まとめ
+
+TypeScriptの型システムは非常に強力です。
+これらのテクニックを活用することで、コンパイル時にバグを発見し、より保守性の高いコードを書くことができます。
+
+::: {.callout-tip}
+## 次のステップ
+TypeScript公式ドキュメントの[Advanced Types](https://www.typescriptlang.org/docs/handbook/advanced-types.html)を読んで、さらに深く学びましょう。
+:::
+

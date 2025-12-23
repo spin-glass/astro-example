@@ -1,0 +1,55 @@
+---
+title: "About"
+---
+
+## 山田 太郎 / Taro Yamada
+
+シニアソフトウェアエンジニア / テックリード
+
+### 経歴
+
+10年以上のソフトウェア開発経験を持つフルスタックエンジニアです。
+Webアプリケーション開発、クラウドインフラ構築、チームリーダーシップに精通しています。
+
+現在は株式会社テックイノベーションにて、大規模ECプラットフォームの開発・運用を担当しています。
+
+### スキル
+
+#### プログラミング言語
+
+- TypeScript / JavaScript
+- Python
+- Go
+- Ruby
+
+#### フレームワーク
+
+- React / Next.js
+- Vue.js / Nuxt.js
+- Node.js / Express
+- Django / FastAPI
+
+#### インフラ・クラウド
+
+- AWS (EC2, ECS, Lambda, RDS, etc.)
+- GCP (GKE, Cloud Run, BigQuery, etc.)
+- Docker / Kubernetes
+- Terraform
+
+### 資格
+
+- AWS Solutions Architect - Professional (2023)
+- Google Cloud Professional Cloud Architect (2022)
+- 応用情報技術者試験 (2016)
+
+### 学歴
+
+- 東京工業大学 情報工学修士 (2013-2015)
+- 東京工業大学 情報工学学士 (2009-2013)
+
+### 連絡先
+
+- 📧 [taro.yamada@example.com](mailto:taro.yamada@example.com)
+- 🐙 [GitHub](https://github.com/taroyamada)
+- 💼 [LinkedIn](https://linkedin.com/in/taroyamada)
+

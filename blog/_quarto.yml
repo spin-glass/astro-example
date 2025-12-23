@@ -1,0 +1,49 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "山田太郎 Tech Blog"
+  description: "シニアソフトウェアエンジニアの技術ブログ"
+  site-url: https://YOUR_USERNAME.github.io/astro-example/blog
+  
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: posts.qmd
+        text: Blog
+      - text: "---"
+      - href: ../index.html
+        text: 📄 Resume
+      - href: ../slides/
+        text: 📊 Slides
+    right:
+      - icon: github
+        href: https://github.com/taroyamada
+      - icon: linkedin
+        href: https://linkedin.com/in/taroyamada
+  
+  page-footer:
+    center: "© 2024 山田太郎. All rights reserved."
+  
+  search: true
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    highlight-style: github
+    
+lang: ja
+
+execute:
+  freeze: auto

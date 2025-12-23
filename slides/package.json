@@ -1,0 +1,19 @@
+{
+  "name": "resume-slides",
+  "version": "1.0.0",
+  "description": "職務経歴書プレゼンテーション",
+  "type": "module",
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export",
+    "export-pdf": "slidev export --format pdf"
+  },
+  "keywords": ["slidev", "resume", "presentation"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slidev/cli": "^51.5.1",
+    "@slidev/theme-default": "^0.25.0"
+  }
+}

@@ -1,0 +1,275 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// ダミーデータ
+const profile = {
+  name: "山田 太郎",
+  nameEn: "Taro Yamada",
+  title: "シニアソフトウェアエンジニア",
+  email: "taro.yamada@example.com",
+  phone: "090-1234-5678",
+  location: "東京都渋谷区",
+  github: "github.com/taroyamada",
+  linkedin: "linkedin.com/in/taroyamada",
+};
+
+const summary = `10年以上のソフトウェア開発経験を持つフルスタックエンジニアです。
+Webアプリケーション開発、クラウドインフラ構築、チームリーダーシップに精通しています。
+特にTypeScript/React/Node.jsを用いたモダンなWeb開発と、AWS/GCPを活用したスケーラブルなシステム設計を得意としています。`;
+
+const experiences = [
+  {
+    company: "株式会社テックイノベーション",
+    position: "シニアソフトウェアエンジニア / テックリード",
+    period: "2021年4月 - 現在",
+    description: "大規模ECプラットフォームの開発・運用を担当。10名のエンジニアチームをリードし、マイクロサービスアーキテクチャへの移行を主導。",
+    achievements: [
+      "システムのパフォーマンスを40%改善",
+      "CI/CDパイプラインを構築し、デプロイ時間を75%短縮",
+      "新規エンジニアのオンボーディングプログラムを設計・実施",
+    ],
+    technologies: ["TypeScript", "React", "Node.js", "PostgreSQL", "AWS", "Docker", "Kubernetes"],
+  },
+  {
+    company: "グローバルソフト株式会社",
+    position: "ソフトウェアエンジニア",
+    period: "2017年4月 - 2021年3月",
+    description: "BtoB SaaSプロダクトの開発に従事。フロントエンドからバックエンドまで幅広く担当。",
+    achievements: [
+      "ユーザー認証基盤のリアーキテクチャを実施",
+      "APIレスポンス時間を60%改善",
+      "ユニットテストカバレッジを30%から85%に向上",
+    ],
+    technologies: ["JavaScript", "Vue.js", "Python", "Django", "MySQL", "GCP"],
+  },
+  {
+    company: "スタートアップ株式会社",
+    position: "ジュニアエンジニア",
+    period: "2015年4月 - 2017年3月",
+    description: "モバイルアプリのバックエンド開発を担当。スタートアップ環境でアジャイル開発を経験。",
+    achievements: [
+      "プッシュ通知システムを設計・実装",
+      "データベース設計の改善によりクエリ速度を改善",
+    ],
+    technologies: ["Ruby", "Ruby on Rails", "PostgreSQL", "Redis", "Heroku"],
+  },
+];
+
+const education = [
+  {
+    school: "東京工業大学",
+    degree: "情報工学修士",
+    period: "2013年4月 - 2015年3月",
+  },
+  {
+    school: "東京工業大学",
+    degree: "情報工学学士",
+    period: "2009年4月 - 2013年3月",
+  },
+];
+
+const skills = {
+  languages: ["TypeScript", "JavaScript", "Python", "Go", "Ruby"],
+  frontend: ["React", "Vue.js", "Next.js", "Tailwind CSS"],
+  backend: ["Node.js", "Express", "Django", "Ruby on Rails"],
+  database: ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
+  cloud: ["AWS", "GCP", "Docker", "Kubernetes", "Terraform"],
+  other: ["Git", "CI/CD", "Agile/Scrum", "TDD"],
+};
+
+const certifications = [
+  { name: "AWS Solutions Architect - Professional", year: "2023" },
+  { name: "Google Cloud Professional Cloud Architect", year: "2022" },
+  { name: "応用情報技術者試験", year: "2016" },
+];
+---
+
+<Layout title="職務経歴書 - 山田太郎">
+  <!-- Navigation (Screen Only) -->
+  <nav class="no-print bg-primary text-white py-3 px-6 flex justify-between items-center">
+    <span class="font-bold">山田太郎 Portfolio</span>
+    <div class="flex gap-4 text-sm">
+      <a href="./" class="hover:underline">📄 Resume</a>
+      <a href="./slides/" class="hover:underline">📊 Slides</a>
+      <a href="./blog/" class="hover:underline">📝 Blog</a>
+    </div>
+  </nav>
+
+  <main class="resume-container p-8 md:p-12">
+    <!-- Header -->
+    <header class="mb-8 border-b-2 border-primary pb-6">
+      <h1 class="text-3xl font-bold text-primary mb-1">{profile.name}</h1>
+      <p class="text-lg text-text-muted mb-4">{profile.title}</p>
+      <div class="flex flex-wrap gap-4 text-sm text-text-muted">
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          {profile.email}
+        </span>
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+          {profile.phone}
+        </span>
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          {profile.location}
+        </span>
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          {profile.github}
+        </span>
+      </div>
+    </header>
+
+    <!-- Summary -->
+    <section class="resume-section mb-8">
+      <h2 class="text-xl font-bold text-primary mb-3 flex items-center gap-2">
+        <span class="w-1 h-6 bg-accent rounded"></span>
+        職務要約
+      </h2>
+      <p class="text-text leading-relaxed whitespace-pre-line">{summary}</p>
+    </section>
+
+    <!-- Experience -->
+    <section class="resume-section mb-8">
+      <h2 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+        <span class="w-1 h-6 bg-accent rounded"></span>
+        職務経歴
+      </h2>
+      <div class="space-y-6">
+        {experiences.map((exp) => (
+          <div class="border-l-2 border-border pl-4">
+            <div class="flex flex-wrap justify-between items-start mb-1">
+              <h3 class="text-lg font-semibold text-secondary">{exp.company}</h3>
+              <span class="text-sm text-text-muted bg-surface px-2 py-0.5 rounded">{exp.period}</span>
+            </div>
+            <p class="text-base font-medium text-text mb-2">{exp.position}</p>
+            <p class="text-sm text-text-muted mb-3">{exp.description}</p>
+            <ul class="list-disc list-inside text-sm text-text space-y-1 mb-3">
+              {exp.achievements.map((achievement) => (
+                <li>{achievement}</li>
+              ))}
+            </ul>
+            <div class="flex flex-wrap gap-1.5">
+              {exp.technologies.map((tech) => (
+                <span class="text-xs bg-surface text-secondary px-2 py-0.5 rounded border border-border">{tech}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="resume-section mb-8">
+      <h2 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+        <span class="w-1 h-6 bg-accent rounded"></span>
+        技術スキル
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h3 class="text-sm font-semibold text-secondary mb-2">プログラミング言語</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.languages.map((skill) => (
+              <span class="text-xs bg-primary text-white px-2 py-1 rounded">{skill}</span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-secondary mb-2">フロントエンド</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.frontend.map((skill) => (
+              <span class="text-xs bg-primary text-white px-2 py-1 rounded">{skill}</span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-secondary mb-2">バックエンド</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.backend.map((skill) => (
+              <span class="text-xs bg-primary text-white px-2 py-1 rounded">{skill}</span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-secondary mb-2">データベース</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.database.map((skill) => (
+              <span class="text-xs bg-primary text-white px-2 py-1 rounded">{skill}</span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-secondary mb-2">クラウド・インフラ</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.cloud.map((skill) => (
+              <span class="text-xs bg-primary text-white px-2 py-1 rounded">{skill}</span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-secondary mb-2">その他</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.other.map((skill) => (
+              <span class="text-xs bg-primary text-white px-2 py-1 rounded">{skill}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education & Certifications -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Education -->
+      <section class="resume-section">
+        <h2 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+          <span class="w-1 h-6 bg-accent rounded"></span>
+          学歴
+        </h2>
+        <div class="space-y-3">
+          {education.map((edu) => (
+            <div class="border-l-2 border-border pl-4">
+              <h3 class="text-base font-semibold text-secondary">{edu.school}</h3>
+              <p class="text-sm text-text">{edu.degree}</p>
+              <p class="text-xs text-text-muted">{edu.period}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section class="resume-section">
+        <h2 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+          <span class="w-1 h-6 bg-accent rounded"></span>
+          資格・認定
+        </h2>
+        <div class="space-y-2">
+          {certifications.map((cert) => (
+            <div class="flex justify-between items-center border-l-2 border-border pl-4">
+              <span class="text-sm text-text">{cert.name}</span>
+              <span class="text-xs text-text-muted">{cert.year}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+
+    <!-- Print Button (Screen Only) -->
+    <div class="no-print mt-8 pt-6 border-t border-border text-center">
+      <button 
+        onclick="window.print()"
+        class="bg-primary text-white px-6 py-2 rounded hover:bg-secondary transition-colors cursor-pointer"
+      >
+        印刷 / PDF出力
+      </button>
+    </div>
+  </main>
+</Layout>
