@@ -5,7 +5,7 @@ Astro + Slidev + Quartoを組み合わせて、職務経歴書・プレゼンテ
 
 ## デモ
 
-🔗 [GitHub Pages で確認](https://YOUR_USERNAME.github.io/astro-example/)
+🔗 [GitHub Pages で確認](https://spin-glass.github.io/astro-example/)
 
 ## 構成
 

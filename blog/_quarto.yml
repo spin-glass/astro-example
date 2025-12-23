@@ -5,7 +5,7 @@ project:
 website:
   title: "山田太郎 Tech Blog"
   description: "シニアソフトウェアエンジニアの技術ブログ"
-  site-url: https://YOUR_USERNAME.github.io/astro-example/blog
+  site-url: https://spin-glass.github.io/astro-example/blog
   
   navbar:
     left:
